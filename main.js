@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
       // Replace 'MyCV.pdf' with your actual file name in the repo/space
       const link = document.createElement('a');
-      link.href = './HapyJames_CV.pdf'; // Path to your actual CV file
-      link.download = 'HapyJames_CV.pdf';
+      link.href = './HapyJames_CV1.pdf'; // Path to your actual CV file
+      link.download = 'HapyJames_CV1.pdf';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
