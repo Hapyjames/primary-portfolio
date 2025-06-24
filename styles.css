@@ -890,7 +890,7 @@ footer {
   .hero-left h1 { font-size: 1.1rem; }
   .hero-left p { font-size: 0.96rem;}
   .portfolio-grid { flex-direction: column; gap: 18px;}
-  .hexagon-img-wrapper { width: 70vw; height: auto; min-width: 90px; min-height: 100px; }
+  .hexagon-img-wrapper { width: 85vw; height: auto; min-width: 90px;}
   .supplementary-section { padding: 8vw 1vw 8vw 1vw;}
 }
 
