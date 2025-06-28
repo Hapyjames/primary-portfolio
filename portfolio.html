@@ -8,28 +8,12 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/8e45396e2e.css">
   <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    /* Typing animation styles for project titles */
-    .project-title {
-      position: relative;
-      min-height: 1.5em; /* Maintain consistent height during animation */
-      font-family: 'Source Code Pro', monospace;
-    }
-    .project-title::after {
-      content: "|";
-      position: absolute;
-      right: -5px;
-      animation: blink 1s infinite step-end;
-      color: #27e8ff;
-    }
-    
-    /* Typing animation for the "visit live sites" text */
-    .typing-animation {
-      display: inline-block;
+    /* Typing animation styles */
+    .typing-text {
       position: relative;
       font-family: 'Source Code Pro', monospace;
-      color: #27e8ff;
     }
-    .typing-animation::after {
+    .typing-text::after {
       content: "|";
       position: absolute;
       right: -5px;
@@ -44,6 +28,34 @@
     
     .highlight {
       font-weight: bold;
+      color: #27e8ff;
+    }
+    
+    /* Project title styles */
+    .project-title {
+      position: relative;
+      min-height: 1.5em;
+      font-family: 'Source Code Pro', monospace;
+    }
+    .project-title::after {
+      content: "|";
+      position: absolute;
+      right: -5px;
+      animation: blink 1s infinite step-end;
+      color: #27e8ff;
+    }
+    
+    /* Portfolio heading animation */
+    .portfolio-heading {
+      font-family: 'Source Code Pro', monospace;
+      position: relative;
+      display: inline-block;
+    }
+    .portfolio-heading::after {
+      content: "|";
+      position: absolute;
+      right: -5px;
+      animation: blink 1s infinite step-end;
       color: #27e8ff;
     }
   </style>
@@ -64,7 +76,7 @@
       </ul>
     </nav>
     <section class="supplementary-section">
-      <h1>Portfolio</h1>
+      <h1 class="portfolio-heading" id="portfolioHeading">Portfolio</h1>
       <div class="portfolio-intro">
         <p>
           Explore a selection of my favorite projects below. Each one challenged me to grow as a developer and designer.
@@ -112,8 +124,8 @@
           <h2 class="project-title" data-text="DeFi Integration Platform"></h2>
           <p>Simplifying complex DeFi transactions with seamless Zaps, Historical Data APIs, and AI integrations to make DeFi accessible.</p>
           <div class="portfolio-links">
-            <a href=" https://hapyjames.github.io/tyre/" target="_blank" class="portfolio-btn"><i class="fa fa-external-link"></i> Visit Site</a>
-            <a href="  https://github.com/Hapyjames/hapyjamesportfolio " target="_blank" class="portfolio-btn"><i class="fa fa-github"></i> Source</a>
+            <a href="https://hapyjames.github.io/tyre/" target="_blank" class="portfolio-btn"><i class="fa fa-external-link"></i> Visit Site</a>
+            <a href="https://github.com/Hapyjames/hapyjamesportfolio" target="_blank" class="portfolio-btn"><i class="fa fa-github"></i> Source</a>
           </div>
         </div>
         <div class="portfolio-card">
@@ -124,7 +136,7 @@
           <p>NEUROGX - Personalized AI learning dashboard with course tracking, progress monitoring, and customizable settings.</p>
           <div class="portfolio-links">
             <a href="https://hapyjames.github.io/react1/" target="_blank" class="portfolio-btn"><i class="fa fa-external-link"></i> Visit Site</a>
-            <a href="  https://github.com/Hapyjames/hapyjamesportfolio " target="_blank" class="portfolio-btn"><i class="fa fa-github"></i> Source</a>
+            <a href="https://github.com/Hapyjames/hapyjamesportfolio" target="_blank" class="portfolio-btn"><i class="fa fa-github"></i> Source</a>
           </div>
         </div>
         <div class="portfolio-card">
@@ -135,7 +147,7 @@
           <p>FERRARI showcase - A redefinition of automotive luxury combining style, performance, and cutting-edge customization.</p>
           <div class="portfolio-links">
             <a href="https://hapyjames.github.io/ferrari/" target="_blank" class="portfolio-btn"><i class="fa fa-external-link"></i> Visit Site</a>
-            <a href=" https://github.com/Hapyjames/hapyjamesportfolio  " target="_blank" class="portfolio-btn"><i class="fa fa-github"></i> Source</a>
+            <a href="https://github.com/Hapyjames/hapyjamesportfolio" target="_blank" class="portfolio-btn"><i class="fa fa-github"></i> Source</a>
           </div>
         </div>
       </div>
@@ -162,9 +174,40 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      // Portfolio heading typing animation (infinite loop)
+      const portfolioHeading = document.getElementById('portfolioHeading');
+      const headingText = "Portfolio";
+      let headingIndex = 0;
+      let isDeletingHeading = false;
+      let headingSpeed = 150;
+      
+      function typeHeading() {
+        const currentText = isDeletingHeading 
+          ? headingText.substring(0, headingIndex - 1)
+          : headingText.substring(0, headingIndex + 1);
+        
+        portfolioHeading.textContent = currentText;
+        headingIndex = currentText.length;
+        
+        if (!isDeletingHeading && currentText === headingText) {
+          // Pause at end
+          headingSpeed = 2000;
+          isDeletingHeading = true;
+        } else if (isDeletingHeading && currentText === '') {
+          // Restart typing
+          isDeletingHeading = false;
+          headingSpeed = 500;
+        }
+        
+        setTimeout(typeHeading, headingSpeed);
+      }
+      
+      // Start heading animation
+      setTimeout(typeHeading, 1000);
+      
       // Project titles typing animation
       const projectTitles = document.querySelectorAll('.project-title');
-      const baseDelay = 300; // Base delay between animations
+      const baseDelay = 300;
       
       projectTitles.forEach((title, index) => {
         const fullText = title.getAttribute('data-text');
@@ -174,7 +217,6 @@
         let delay = index * baseDelay;
         
         function type() {
-          // Current text state
           const currentText = isDeleting 
             ? fullText.substring(0, text.length - 1)
             : fullText.substring(0, text.length + 1);
@@ -182,69 +224,50 @@
           title.textContent = currentText;
           text = currentText;
           
-          // Set typing speed
           typingSpeed = isDeleting ? 50 : 100;
           
-          // Check if complete
           if (!isDeleting && text === fullText) {
-            typingSpeed = 2000; // Pause at end
+            typingSpeed = 2000;
             isDeleting = true;
           } else if (isDeleting && text === '') {
             isDeleting = false;
-            typingSpeed = 500; // Pause before restart
+            typingSpeed = 500;
           }
           
           setTimeout(type, typingSpeed);
         }
         
-        // Start animation with staggered delay
         setTimeout(type, delay);
       });
       
-      // "Visit the live sites" typing animation
+      // "Visit the live sites" typing animation (runs once)
       const liveSitesText = document.getElementById('liveSitesText');
-      const phrases = [
-        "visit the live sites",
-        "check out the demos",
-        "explore the projects",
-        "try them out"
-      ];
+      const phrases = ["visit the live sites"];
       let phraseIndex = 0;
       let charIndex = 0;
-      let isDeletingLive = false;
       let typingSpeedLive = 100;
-      let pauseBetween = 2000;
+      let hasCompleted = false;
       
       function typeLiveSites() {
-        const currentPhrase = phrases[phraseIndex];
+        if (hasCompleted) return;
         
-        // Current text state
-        const currentText = isDeletingLive 
-          ? currentPhrase.substring(0, charIndex - 1)
-          : currentPhrase.substring(0, charIndex + 1);
+        const currentPhrase = phrases[phraseIndex];
+        const currentText = currentPhrase.substring(0, charIndex + 1);
         
         liveSitesText.textContent = currentText;
-        charIndex = currentText.length;
+        charIndex++;
         
-        // Set typing speed
-        typingSpeedLive = isDeletingLive ? 50 : 100;
-        
-        if (!isDeletingLive && currentText === currentPhrase) {
-          // Pause at end of phrase
-          typingSpeedLive = pauseBetween;
-          isDeletingLive = true;
-        } else if (isDeletingLive && currentText === '') {
-          // Move to next phrase
-          isDeletingLive = false;
-          phraseIndex = (phraseIndex + 1) % phrases.length;
-          typingSpeedLive = 500; // Pause before next phrase
+        if (currentText !== currentPhrase) {
+          setTimeout(typeLiveSites, typingSpeedLive);
+        } else {
+          hasCompleted = true;
+          // Remove the cursor after animation completes
+          liveSitesText.style.setProperty('--after-display', 'none');
         }
-        
-        setTimeout(typeLiveSites, typingSpeedLive);
       }
       
       // Start the live sites animation
-      setTimeout(typeLiveSites, 1000);
+      setTimeout(typeLiveSites, 1500);
     });
   </script>
 </body>
