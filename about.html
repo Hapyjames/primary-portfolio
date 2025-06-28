@@ -13,15 +13,11 @@
       min-height: 500px; /* Reserve space to prevent height jumps */
     }
     
-    /* Typing animation styles with fixed dimensions */
+    /* Typing animation base styles */
     .typing-animation {
       font-family: 'Courier New', monospace !important;
       position: relative;
-      display: inline-block;
-      min-width: 100px; /* Reserve minimum space */
-      height: 1.2em; /* Fixed height based on line-height */
-      vertical-align: top; /* Prevent vertical movement */
-      contain: content; /* Limit reflow scope */
+      display: inline;
     }
     
     /* Specific width for heading to prevent shifting */
@@ -31,17 +27,16 @@
       display: inline-block;
     }
     
-    /* Removed all layout prevention for CTA to let it grow naturally */
-    #about-cta {
-      position: relative;
+    /* Name element - natural growth */
+    #name-text {
       display: inline;
+      position: relative;
     }
     
-    /* Name element with fixed space */
-    #name-text {
-      min-width: 150px;
-      height: 1.2em;
-      display: inline-block;
+    /* CTA text - natural growth */
+    #about-cta {
+      display: inline;
+      position: relative;
     }
     
     .typing-animation::after {
