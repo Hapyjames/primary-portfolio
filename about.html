@@ -6,6 +6,30 @@
   <title>Portfolio | About</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/8e45396e2e.css">
+  <style>
+    /* Typing animation styles only for specific elements */
+    .typing-animation {
+      font-family: 'Courier New', monospace;
+      position: relative;
+      display: inline-block;
+    }
+    .typing-animation::after {
+      content: "|";
+      position: absolute;
+      right: -5px;
+      animation: blink 1s infinite step-end;
+      color: #27e8ff;
+    }
+    @keyframes blink {
+      from, to { opacity: 0 }
+      50% { opacity: 1 }
+    }
+    /* Ensure original highlight style remains */
+    .typing-animation .highlight {
+      color: inherit;
+      background: transparent;
+    }
+  </style>
 </head>
 <body>
   <div class="main-bg">
@@ -24,12 +48,12 @@
     </nav>
     <section class="supplementary-section">
       <div class="supplementary-inner">
-        <h1>About Me</h1>
+        <h1 id="about-me-heading" class="typing-animation"></h1>
         <p>
             Hi, I'm <span class="highlight">Hapy James</span>, a passionate Frontend Developer dedicated to crafting seamless and engaging web experiences.<br><br>
             With a background in programming and over 3 years of experience, I specialize in building responsive, user-friendly interfaces using technologies like <strong>React.js</strong>, <strong>Vue.js</strong>, <strong>HTML5</strong>, and <strong>CSS3</strong>.<br><br>
             I believe in clean code, continuous learning, and always putting the user first. Outside work, I enjoy hiking, playing chess, and discovering new coffee spots.<br><br>
-            <span class="about-cta">Feel free to connect or check out my latest projects!</span>
+            <span id="about-cta" class="typing-animation about-cta"></span>
         </p>
         <div class="supplementary-socials">
           <a href="https://www.facebook.com/hapyjames.ke"><i class="fa fa-facebook"></i></a>
@@ -46,5 +70,44 @@
       <p>Designed with <i class="fa fa-heart"></i> by Hapy James</p>
     </div>
   </footer>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Animate "About Me" heading
+      const headingText = "About Me";
+      const headingElement = document.getElementById('about-me-heading');
+      let i = 0;
+      
+      function typeHeading() {
+        if (i < headingText.length) {
+          headingElement.textContent = headingText.substring(0, i + 1);
+          i++;
+          setTimeout(typeHeading, 100);
+        } else {
+          headingElement.classList.remove('typing-animation');
+          // Start CTA animation after heading completes
+          setTimeout(typeCTA, 500);
+        }
+      }
+      
+      // Animate CTA text
+      const ctaText = "Feel free to connect or check out my latest projects!";
+      const ctaElement = document.getElementById('about-cta');
+      let j = 0;
+      
+      function typeCTA() {
+        if (j < ctaText.length) {
+          ctaElement.textContent = ctaText.substring(0, j + 1);
+          j++;
+          setTimeout(typeCTA, 50);
+        } else {
+          ctaElement.classList.remove('typing-animation');
+        }
+      }
+      
+      // Start the animation
+      setTimeout(typeHeading, 500);
+    });
+  </script>
 </body>
 </html>
