@@ -7,12 +7,44 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/8e45396e2e.css">
   <style>
-    /* Typing animation styles */
+    /* Layout prevention measures */
+    .supplementary-inner {
+      contain: content; /* Limits the scope of browser reflows */
+      min-height: 500px; /* Reserve space to prevent height jumps */
+    }
+    
+    /* Typing animation styles with fixed dimensions */
     .typing-animation {
       font-family: 'Courier New', monospace !important;
       position: relative;
       display: inline-block;
+      min-width: 100px; /* Reserve minimum space */
+      height: 1.2em; /* Fixed height based on line-height */
+      vertical-align: top; /* Prevent vertical movement */
+      contain: content; /* Limit reflow scope */
     }
+    
+    /* Specific width for heading to prevent shifting */
+    #about-me-heading {
+      min-width: 120px;
+      height: 1.5em;
+      display: inline-block;
+    }
+    
+    /* Specific width for CTA to prevent shifting */
+    #about-cta {
+      min-width: 300px;
+      height: 1.2em;
+      display: inline-block;
+    }
+    
+    /* Name element with fixed space */
+    #name-text {
+      min-width: 150px;
+      height: 1.2em;
+      display: inline-block;
+    }
+    
     .typing-animation::after {
       content: "|";
       position: absolute;
@@ -20,17 +52,33 @@
       animation: blink 1s infinite step-end;
       color: #27e8ff;
     }
+    
     @keyframes blink {
       from, to { opacity: 0 }
       50% { opacity: 1 }
     }
+    
     /* Permanent coding font for name */
     .permanent-code-font {
       font-family: 'Courier New', monospace !important;
     }
+    
     /* Remove cursor after animation completes */
     .typing-complete::after {
       display: none;
+    }
+    
+    /* Paragraph with stable layout */
+    .supplementary-inner p {
+      contain: content;
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+    
+    /* Social links container */
+    .supplementary-socials {
+      contain: content;
+      margin-top: 1.5em;
     }
   </style>
 </head>
