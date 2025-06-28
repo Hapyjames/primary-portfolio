@@ -22,6 +22,8 @@
       height: 1.2em; /* Fixed height based on line-height */
       vertical-align: top; /* Prevent vertical movement */
       contain: content; /* Limit reflow scope */
+      white-space: nowrap; /* Prevent text wrapping */
+      overflow: visible; /* Ensure text isn't clipped */
     }
     
     /* Specific width for heading to prevent shifting */
@@ -31,11 +33,14 @@
       display: inline-block;
     }
     
-    /* Specific width for CTA to prevent shifting */
+    /* Specific style for CTA to prevent shifting while showing full text */
     #about-cta {
-      min-width: 300px;
-      height: 1.2em;
       display: inline-block;
+      height: 1.2em;
+      white-space: nowrap;
+      overflow: visible;
+      min-width: 0; /* Allow natural width */
+      width: auto; /* Allow natural width */
     }
     
     /* Name element with fixed space */
@@ -83,6 +88,7 @@
   </style>
 </head>
 <body>
+  <!-- Rest of your HTML remains the same -->
   <div class="main-bg">
     <nav class="navbar">
       <div class="brand">
