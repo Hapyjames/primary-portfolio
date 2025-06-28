@@ -6,12 +6,30 @@
   <title>Portfolio | Home</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/8e45396e2e.css">
+  <style>
+    /* Typing animation styles */
+    .typing-container {
+      font-family: 'Courier New', monospace;
+      position: relative;
+      display: inline-block;
+    }
+    .typing-container::after {
+      content: "|";
+      position: absolute;
+      right: 0;
+      animation: blink 1s infinite step-end;
+      color: #27e8ff;
+    }
+    @keyframes blink {
+      from, to { opacity: 0 }
+      50% { opacity: 1 }
+    }
+  </style>
 </head>
 <body>
   <div class="main-bg">
     <nav class="navbar">
       <div class="brand">
-        <!-- Portfolio image/logo -->
         <img src="2.png" alt="Portfolio Logo" class="portfolio-logo" style="height:86px;width:auto;vertical-align:middle;margin-right:12px;border-radius:10px;">
         Portfolio.
       </div>
@@ -27,12 +45,10 @@
       <div class="hero-left">
         <h2>Hello, It's Me</h2>
         <h1>Hapy James</h1>
-        <h3>And I'm a <span class="highlight">Frontend Developer</span></h3>
+        <h3>And I'm a <span class="highlight typing-container" id="typing-text">Frontend Developer</span></h3>
         <p>Elevate Your Brand with Expert Web Design, Custom Graphics & Seamless Tech Solutions
 Stunning Websites • Eye-Catching Posters • Reliable Windows & Office Activations
-Professional, Hassle-Free & Results-Driven—Let’s Make Your Vision Shine! ✨
-
-</p>
+Professional, Hassle-Free & Results-Driven—Let's Make Your Vision Shine! ✨</p>
         <div class="hero-socials">
           <a href="https://www.facebook.com/hapyjames.ke"><i class="fa fa-facebook"></i></a>
           <a href="https://x.com/HapyJames_?s=09"><i class="fa fa-twitter"></i></a>
@@ -47,8 +63,8 @@ Professional, Hassle-Free & Results-Driven—Let’s Make Your Vision Shine! ✨
         </div>
       </div>
     </section>
-    <h2 class="tech-h2" >
-        <i class="fa fa-cogs" ></i>
+    <h2 class="tech-h2">
+        <i class="fa fa-cogs"></i>
         Feel free to check our website and our services
     </h2>
   </div>
@@ -58,6 +74,48 @@ Professional, Hassle-Free & Results-Driven—Let’s Make Your Vision Shine! ✨
       <p>Designed with <i class="fa fa-heart"></i> by Hapy James</p>
     </div>
   </footer>
+  
+  <!-- Link to your main.js file -->
   <script src="main.js"></script>
+  
+  <!-- Typing animation script (can also move this to main.js if preferred) -->
+  <script>
+    // This can be moved to main.js if you want to keep all JS in one file
+    document.addEventListener('DOMContentLoaded', function() {
+      const textElement = document.getElementById('typing-text');
+      const phrases = ['Frontend Developer', 'UI/UX Designer', 'Web Developer'];
+      let currentPhrase = 0;
+      let currentChar = 0;
+      let isDeleting = false;
+      let typingSpeed = 100;
+      
+      function type() {
+        const fullText = phrases[currentPhrase];
+        
+        if (isDeleting) {
+          textElement.textContent = fullText.substring(0, currentChar - 1);
+          currentChar--;
+          typingSpeed = 50;
+        } else {
+          textElement.textContent = fullText.substring(0, currentChar + 1);
+          currentChar++;
+          typingSpeed = 100;
+        }
+        
+        if (!isDeleting && currentChar === fullText.length) {
+          typingSpeed = 1000;
+          isDeleting = true;
+        } else if (isDeleting && currentChar === 0) {
+          isDeleting = false;
+          currentPhrase = (currentPhrase + 1) % phrases.length;
+          typingSpeed = 500;
+        }
+        
+        setTimeout(type, typingSpeed);
+      }
+      
+      setTimeout(type, 1000);
+    });
+  </script>
 </body>
 </html>
