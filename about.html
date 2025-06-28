@@ -24,15 +24,13 @@
       from, to { opacity: 0 }
       50% { opacity: 1 }
     }
-    /* Special style for the name */
-    .typing-name {
-      color: inherit;
-      background: transparent;
+    /* Permanent coding font for name */
+    .permanent-code-font {
       font-family: 'Courier New', monospace !important;
     }
-    /* Maintain original highlight style when not typing */
-    .highlight:not(.typing-animation) {
-      font-family: inherit;
+    /* Remove cursor after animation completes */
+    .typing-complete::after {
+      display: none;
     }
   </style>
 </head>
@@ -55,7 +53,7 @@
       <div class="supplementary-inner">
         <h1 id="about-me-heading" class="typing-animation"></h1>
         <p>
-            Hi, I'm <span id="name-text" class="highlight typing-animation typing-name"></span>, a passionate Frontend Developer dedicated to crafting seamless and engaging web experiences.<br><br>
+            Hi, I'm <span id="name-text" class="highlight typing-animation"></span>, a passionate Frontend Developer dedicated to crafting seamless and engaging web experiences.<br><br>
             With a background in programming and over 3 years of experience, I specialize in building responsive, user-friendly interfaces using technologies like <strong>React.js</strong>, <strong>Vue.js</strong>, <strong>HTML5</strong>, and <strong>CSS3</strong>.<br><br>
             I believe in clean code, continuous learning, and always putting the user first. Outside work, I enjoy hiking, playing chess, and discovering new coffee spots.<br><br>
             <span id="about-cta" class="typing-animation about-cta"></span>
@@ -78,62 +76,80 @@
   
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Texts to animate
-      const elements = [
+      // Infinite looping animations
+      const infiniteElements = [
         {
           id: 'about-me-heading',
           text: 'About Me',
-          speed: 100,
-          loopDelay: 2000
-        },
-        {
-          id: 'name-text',
-          text: 'Hapy James',
-          speed: 150,
-          loopDelay: 1500
+          typingSpeed: 100,
+          deletingSpeed: 50,
+          endPause: 2000
         },
         {
           id: 'about-cta',
           text: 'Feel free to connect or check out my latest projects!',
-          speed: 50,
-          loopDelay: 3000
+          typingSpeed: 50,
+          deletingSpeed: 30,
+          endPause: 3000
         }
       ];
 
-      // Initialize all typing animations
-      elements.forEach(item => {
-        const element = document.getElementById(item.id);
-        let isDeleting = false;
+      // Single-run animation for name
+      const nameElement = document.getElementById('name-text');
+      const nameText = 'Hapy James';
+      let nameIndex = 0;
+      
+      function typeName() {
+        if (nameIndex < nameText.length) {
+          nameElement.textContent = nameText.substring(0, nameIndex + 1);
+          nameIndex++;
+          setTimeout(typeName, 150);
+        } else {
+          // Animation complete - remove cursor but keep font
+          nameElement.classList.add('typing-complete', 'permanent-code-font');
+        }
+      }
+      
+      // Start name animation
+      setTimeout(typeName, 1000);
+
+      // Infinite typing function
+      function infiniteType(element, fullText, typingSpeed, deletingSpeed, endPause) {
         let text = '';
-        let loopCount = 0;
+        let isDeleting = false;
+        let typing = true;
         
         function type() {
-          const fullText = item.text;
           const delta = isDeleting ? -1 : 1;
-          
           text = fullText.substring(0, text.length + delta);
           element.textContent = text;
           
-          // Typing speed
-          let typeSpeed = item.speed;
+          let speed;
           if (isDeleting) {
-            typeSpeed /= 2; // Faster when deleting
+            speed = deletingSpeed;
+          } else {
+            speed = typingSpeed;
           }
           
-          // When complete
           if (!isDeleting && text === fullText) {
-            typeSpeed = item.loopDelay; // Pause at end
+            speed = endPause;
             isDeleting = true;
           } else if (isDeleting && text === '') {
             isDeleting = false;
-            loopCount++;
           }
           
-          setTimeout(type, typeSpeed);
+          setTimeout(type, speed);
         }
         
-        // Start animation after short delay
-        setTimeout(type, 500 + (loopCount * 300));
+        type();
+      }
+
+      // Initialize infinite animations
+      infiniteElements.forEach(item => {
+        const element = document.getElementById(item.id);
+        setTimeout(() => {
+          infiniteType(element, item.text, item.typingSpeed, item.deletingSpeed, item.endPause);
+        }, 500);
       });
     });
   </script>
