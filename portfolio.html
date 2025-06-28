@@ -6,12 +6,29 @@
   <title>Portfolio | Portfolio</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/8e45396e2e.css">
+  <style>
+    /* Typing animation styles for project titles */
+    .project-title {
+      position: relative;
+      min-height: 1.5em; /* Maintain consistent height during animation */
+    }
+    .project-title::after {
+      content: "|";
+      position: absolute;
+      right: -5px;
+      animation: blink 1s infinite step-end;
+      color: #27e8ff;
+    }
+    @keyframes blink {
+      from, to { opacity: 0 }
+      50% { opacity: 1 }
+    }
+  </style>
 </head>
 <body>
   <div class="main-bg">
     <nav class="navbar">
       <div class="brand">
-        <!-- Portfolio image/logo -->
         <img src="2.png" alt="Portfolio Logo" class="portfolio-logo" style="height:86px;width:auto;vertical-align:middle;margin-right:12px;border-radius:10px;">
         Portfolio.
       </div>
@@ -34,10 +51,9 @@
       <div class="portfolio-grid">
         <div class="portfolio-card">
           <div class="portfolio-thumb" style="background:#27e8ff22 url('') center/cover no-repeat;">
-            <!-- Optional: You can put an icon here -->
             <i class="fa fa-globe project-icon"></i>
           </div>
-          <h2>Personal Blog</h2>
+          <h2 class="project-title" data-text="Personal Blog"></h2>
           <p>A modern, responsive blog built with GatsbyJS and Markdown. Features custom theming, SEO, and fast navigation.</p>
           <div class="portfolio-links">
             <a href="https://hapyjames.github.io/tesla/" target="_blank" class="portfolio-btn"><i class="fa fa-external-link"></i> Visit Site</a>
@@ -48,7 +64,7 @@
           <div class="portfolio-thumb" style="background:#27e8ff22 url('') center/cover no-repeat;">
             <i class="fa fa-shopping-cart project-icon"></i>
           </div>
-          <h2>E-commerce Platform</h2>
+          <h2 class="project-title" data-text="E-commerce Platform"></h2>
           <p>Full-stack store using React, Node.js, and MongoDB. Real-time cart, secure checkout, and admin dashboard.</p>
           <div class="portfolio-links">
             <a href="https://hapyjames.github.io/e-commerce/" target="_blank" class="portfolio-btn"><i class="fa fa-external-link"></i> Visit Site</a>
@@ -59,31 +75,29 @@
           <div class="portfolio-thumb" style="background:#27e8ff22 url('') center/cover no-repeat;">
             <i class="fa fa-code project-icon"></i>
           </div>
-          <h2>Portfolio Website</h2>
+          <h2 class="project-title" data-text="Portfolio Website"></h2>
           <p>This personal portfolio—designed and coded from scratch. Fast, accessible, and mobile-friendly.</p>
           <div class="portfolio-links">
             <a href="https://hapyjames.github.io/primary-portfolio2/" target="_blank" class="portfolio-btn"><i class="fa fa-external-link"></i> Visit Site</a>
             <a href="https://github.com/Hapyjames/hapyjamesportfolio" target="_blank" class="portfolio-btn"><i class="fa fa-github"></i> Source</a>
           </div>
         </div>
-        <!-- New Portfolio Card 1 -->
         <div class="portfolio-card">
           <div class="portfolio-thumb" style="background:#27e8ff22 url('') center/cover no-repeat;">
             <i class="fa fa-mobile project-icon"></i>
           </div>
-          <h2>Weather App</h2>
+          <h2 class="project-title" data-text="Weather App"></h2>
           <p>A responsive weather application with real-time forecasts using OpenWeather API. Features geolocation and 5-day forecasts.</p>
           <div class="portfolio-links">
             <a href="#" target="_blank" class="portfolio-btn"><i class="fa fa-external-link"></i> Visit Site</a>
             <a href="#" target="_blank" class="portfolio-btn"><i class="fa fa-github"></i> Source</a>
           </div>
         </div>
-        <!-- New Portfolio Card 2 -->
         <div class="portfolio-card">
           <div class="portfolio-thumb" style="background:#27e8ff22 url('') center/cover no-repeat;">
             <i class="fa fa-tasks project-icon"></i>
           </div>
-          <h2>Task Management System</h2>
+          <h2 class="project-title" data-text="Task Management System"></h2>
           <p>Productivity app with drag-and-drop interface, team collaboration features, and progress tracking using React and Firebase.</p>
           <div class="portfolio-links">
             <a href="#" target="_blank" class="portfolio-btn"><i class="fa fa-external-link"></i> Visit Site</a>
@@ -98,7 +112,6 @@
           <a href="https://www.facebook.com/hapyjames.ke" target="_blank" title="Facebook"><i class="fa fa-facebook"></i></a>
           <a href="https://www.linkedin.com/in/hapyjames-james-018981356?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
           <a href="https://x.com/HapyJames_?s=09" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a>
-          <!-- Add more as needed -->
         </div>
         <p class="portfolio-contact-note">
           Want to see more? <a href="contact.html" class="highlight">Contact me</a> or check out my other online profiles.
@@ -112,5 +125,47 @@
       <p>Designed with <i class="fa fa-heart"></i> by Hapy James</p>
     </div>
   </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const projectTitles = document.querySelectorAll('.project-title');
+      const baseDelay = 300; // Base delay between animations
+      
+      projectTitles.forEach((title, index) => {
+        const fullText = title.getAttribute('data-text');
+        let text = '';
+        let isDeleting = false;
+        let typingSpeed = 100;
+        let delay = index * baseDelay;
+        
+        function type() {
+          // Current text state
+          const currentText = isDeleting 
+            ? fullText.substring(0, text.length - 1)
+            : fullText.substring(0, text.length + 1);
+          
+          title.textContent = currentText;
+          text = currentText;
+          
+          // Set typing speed
+          typingSpeed = isDeleting ? 50 : 100;
+          
+          // Check if complete
+          if (!isDeleting && text === fullText) {
+            typingSpeed = 2000; // Pause at end
+            isDeleting = true;
+          } else if (isDeleting && text === '') {
+            isDeleting = false;
+            typingSpeed = 500; // Pause before restart
+          }
+          
+          setTimeout(type, typingSpeed);
+        }
+        
+        // Start animation with staggered delay
+        setTimeout(type, delay);
+      });
+    });
+  </script>
 </body>
 </html>
