@@ -9,12 +9,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
   <style>
     /* Typing animation styles */
-    .typing-animation {
+    .typing-container {
       display: inline-block;
       position: relative;
+      min-height: 1.2em; /* Fixed height to prevent layout shift */
+      vertical-align: top;
+    }
+    
+    .typing-animation {
+      position: absolute;
+      left: 0;
+      top: 0;
       font-family: 'Source Code Pro', monospace;
       color: #27e8ff;
+      white-space: nowrap; /* Prevent text wrapping */
     }
+    
     .typing-animation::after {
       content: "|";
       position: absolute;
@@ -28,9 +38,10 @@
       50% { opacity: 1 }
     }
     
-    .highlight {
-      font-weight: bold;
-      color: #27e8ff;
+    /* Ensure the h1 maintains consistent height */
+    .supplementary-inner h1 {
+      height: 1.2em;
+      overflow: visible;
     }
   </style>
 </head>
@@ -51,7 +62,7 @@
     </nav>
     <section class="supplementary-section">
       <div class="supplementary-inner">
-        <h1 id="contactMeText" class="typing-animation"></h1>
+        <h1><span class="typing-container"><span id="contactMeText" class="typing-animation"></span></span></h1>
         <form class="contact-form" autocomplete="off">
           <input type="text" class="forms" name="name" placeholder="Your Name" required>
           <input type="email" class="forms" name="email" placeholder="Your Email" required>
@@ -67,6 +78,7 @@
       </div>
     </section>
   </div>
+  <script src="main.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       // "Contact Me" typing animation
@@ -81,7 +93,7 @@
       let charIndex = 0;
       let isDeleting = false;
       let typingSpeed = 100;
-      let pauseBetween = 2000;
+      const pauseBetween = 2000;
       
       function typeContactMe() {
         const currentPhrase = phrases[phraseIndex];
@@ -111,7 +123,7 @@
         setTimeout(typeContactMe, typingSpeed);
       }
       
-      // Start the contact me animation
+      // Start the contact me animation after 1 second
       setTimeout(typeContactMe, 1000);
     });
   </script>
