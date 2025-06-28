@@ -7,9 +7,9 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/8e45396e2e.css">
   <style>
-    /* Typing animation styles only for specific elements */
+    /* Typing animation styles */
     .typing-animation {
-      font-family: 'Courier New', monospace;
+      font-family: 'Courier New', monospace !important;
       position: relative;
       display: inline-block;
     }
@@ -24,10 +24,15 @@
       from, to { opacity: 0 }
       50% { opacity: 1 }
     }
-    /* Ensure original highlight style remains */
-    .typing-animation .highlight {
+    /* Special style for the name */
+    .typing-name {
       color: inherit;
       background: transparent;
+      font-family: 'Courier New', monospace !important;
+    }
+    /* Maintain original highlight style when not typing */
+    .highlight:not(.typing-animation) {
+      font-family: inherit;
     }
   </style>
 </head>
@@ -50,7 +55,7 @@
       <div class="supplementary-inner">
         <h1 id="about-me-heading" class="typing-animation"></h1>
         <p>
-            Hi, I'm <span class="highlight">Hapy James</span>, a passionate Frontend Developer dedicated to crafting seamless and engaging web experiences.<br><br>
+            Hi, I'm <span id="name-text" class="highlight typing-animation typing-name"></span>, a passionate Frontend Developer dedicated to crafting seamless and engaging web experiences.<br><br>
             With a background in programming and over 3 years of experience, I specialize in building responsive, user-friendly interfaces using technologies like <strong>React.js</strong>, <strong>Vue.js</strong>, <strong>HTML5</strong>, and <strong>CSS3</strong>.<br><br>
             I believe in clean code, continuous learning, and always putting the user first. Outside work, I enjoy hiking, playing chess, and discovering new coffee spots.<br><br>
             <span id="about-cta" class="typing-animation about-cta"></span>
@@ -73,40 +78,63 @@
   
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Animate "About Me" heading
-      const headingText = "About Me";
-      const headingElement = document.getElementById('about-me-heading');
-      let i = 0;
-      
-      function typeHeading() {
-        if (i < headingText.length) {
-          headingElement.textContent = headingText.substring(0, i + 1);
-          i++;
-          setTimeout(typeHeading, 100);
-        } else {
-          headingElement.classList.remove('typing-animation');
-          // Start CTA animation after heading completes
-          setTimeout(typeCTA, 500);
+      // Texts to animate
+      const elements = [
+        {
+          id: 'about-me-heading',
+          text: 'About Me',
+          speed: 100,
+          loopDelay: 2000
+        },
+        {
+          id: 'name-text',
+          text: 'Hapy James',
+          speed: 150,
+          loopDelay: 1500
+        },
+        {
+          id: 'about-cta',
+          text: 'Feel free to connect or check out my latest projects!',
+          speed: 50,
+          loopDelay: 3000
         }
-      }
-      
-      // Animate CTA text
-      const ctaText = "Feel free to connect or check out my latest projects!";
-      const ctaElement = document.getElementById('about-cta');
-      let j = 0;
-      
-      function typeCTA() {
-        if (j < ctaText.length) {
-          ctaElement.textContent = ctaText.substring(0, j + 1);
-          j++;
-          setTimeout(typeCTA, 50);
-        } else {
-          ctaElement.classList.remove('typing-animation');
+      ];
+
+      // Initialize all typing animations
+      elements.forEach(item => {
+        const element = document.getElementById(item.id);
+        let isDeleting = false;
+        let text = '';
+        let loopCount = 0;
+        
+        function type() {
+          const fullText = item.text;
+          const delta = isDeleting ? -1 : 1;
+          
+          text = fullText.substring(0, text.length + delta);
+          element.textContent = text;
+          
+          // Typing speed
+          let typeSpeed = item.speed;
+          if (isDeleting) {
+            typeSpeed /= 2; // Faster when deleting
+          }
+          
+          // When complete
+          if (!isDeleting && text === fullText) {
+            typeSpeed = item.loopDelay; // Pause at end
+            isDeleting = true;
+          } else if (isDeleting && text === '') {
+            isDeleting = false;
+            loopCount++;
+          }
+          
+          setTimeout(type, typeSpeed);
         }
-      }
-      
-      // Start the animation
-      setTimeout(typeHeading, 500);
+        
+        // Start animation after short delay
+        setTimeout(type, 500 + (loopCount * 300));
+      });
     });
   </script>
 </body>
