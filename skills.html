@@ -6,6 +6,33 @@
   <title>Portfolio | Skills</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/8e45396e2e.css">
+  <style>
+    /* Typing animation styles */
+    .typing-animation {
+      font-family: 'Courier New', monospace !important;
+      position: relative;
+      display: inline-block;
+    }
+    .typing-animation::after {
+      content: "|";
+      position: absolute;
+      right: -5px;
+      animation: blink 1s infinite step-end;
+      color: #27e8ff;
+    }
+    @keyframes blink {
+      from, to { opacity: 0 }
+      50% { opacity: 1 }
+    }
+    /* Remove cursor after animation completes */
+    .typing-complete::after {
+      display: none;
+    }
+    /* Keep coding font after animation */
+    .typing-complete {
+      font-family: 'Courier New', monospace !important;
+    }
+  </style>
 </head>
 <body>
   <div class="main-bg">
@@ -27,7 +54,7 @@
         <h1>Skills</h1>
         <div class="skills-intro">
           <p>
-            <strong>Crafting beautiful, functional, and accessible web experiences is my passion.</strong> <br>
+            <strong id="passion-text" class="typing-animation"></strong> <br>
             I combine creative design thinking with robust coding skills, ensuring every project is modern, responsive, and user-focused.
           </p>
         </div>
@@ -76,5 +103,28 @@
       <p>Designed with <i class="fa fa-heart"></i> by Hapy James</p>
     </div>
   </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Animate the passion text (single run)
+      const passionText = "Crafting beautiful, functional, and accessible web experiences is my passion.";
+      const passionElement = document.getElementById('passion-text');
+      let charIndex = 0;
+      
+      function typePassion() {
+        if (charIndex < passionText.length) {
+          passionElement.textContent = passionText.substring(0, charIndex + 1);
+          charIndex++;
+          setTimeout(typePassion, 50);
+        } else {
+          // Animation complete - remove cursor but keep font
+          passionElement.classList.add('typing-complete');
+        }
+      }
+      
+      // Start animation after short delay
+      setTimeout(typePassion, 500);
+    });
+  </script>
 </body>
 </html>
