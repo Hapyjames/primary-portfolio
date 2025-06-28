@@ -8,12 +8,21 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/8e45396e2e.css">
   <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    /* Typing animation styles for project titles */
+    /* Typing animation styles */
+    .typing-container {
+      display: inline-block;
+      position: relative;
+      min-height: 1.2em; /* Fixed height */
+      vertical-align: top;
+    }
+    
     .project-title {
       position: relative;
-      min-height: 1.5em; /* Maintain consistent height during animation */
+      min-height: 1.5em; /* Fixed height */
       font-family: 'Source Code Pro', monospace;
+      white-space: nowrap; /* Prevent wrapping */
     }
+    
     .project-title::after {
       content: "|";
       position: absolute;
@@ -22,13 +31,15 @@
       color: #27e8ff;
     }
     
-    /* Typing animation for the "visit live sites" text */
     .typing-animation {
-      display: inline-block;
-      position: relative;
+      position: absolute;
+      left: 0;
+      top: 0;
       font-family: 'Source Code Pro', monospace;
       color: #27e8ff;
+      white-space: nowrap;
     }
+    
     .typing-animation::after {
       content: "|";
       position: absolute;
@@ -45,6 +56,11 @@
     .highlight {
       font-weight: bold;
       color: #27e8ff;
+    }
+    
+    /* Prevent layout shifts */
+    .portfolio-intro p {
+      min-height: 1.5em; /* Match line height */
     }
   </style>
 </head>
@@ -68,7 +84,7 @@
       <div class="portfolio-intro">
         <p>
           Explore a selection of my favorite projects below. Each one challenged me to grow as a developer and designer.
-          You can <span class="typing-animation highlight" id="liveSitesText"></span> or view the source code.
+          You can <span class="typing-container"><span id="liveSitesText" class="typing-animation highlight"></span></span> or view the source code.
         </p>
       </div>
       <div class="portfolio-grid">
@@ -153,40 +169,43 @@
     document.addEventListener('DOMContentLoaded', function() {
       // Project titles typing animation
       const projectTitles = document.querySelectorAll('.project-title');
-      const baseDelay = 300; // Base delay between animations
+      const baseDelay = 300;
       
       projectTitles.forEach((title, index) => {
         const fullText = title.getAttribute('data-text');
+        const container = document.createElement('span');
+        container.className = 'typing-container';
+        const animatedText = document.createElement('span');
+        animatedText.className = 'typing-animation';
+        container.appendChild(animatedText);
+        title.innerHTML = '';
+        title.appendChild(container);
+        
         let text = '';
         let isDeleting = false;
         let typingSpeed = 100;
         let delay = index * baseDelay;
         
         function type() {
-          // Current text state
           const currentText = isDeleting 
             ? fullText.substring(0, text.length - 1)
             : fullText.substring(0, text.length + 1);
           
-          title.textContent = currentText;
+          animatedText.textContent = currentText;
           text = currentText;
-          
-          // Set typing speed
           typingSpeed = isDeleting ? 50 : 100;
           
-          // Check if complete
           if (!isDeleting && text === fullText) {
-            typingSpeed = 2000; // Pause at end
+            typingSpeed = 2000;
             isDeleting = true;
           } else if (isDeleting && text === '') {
             isDeleting = false;
-            typingSpeed = 500; // Pause before restart
+            typingSpeed = 500;
           }
           
           setTimeout(type, typingSpeed);
         }
         
-        // Start animation with staggered delay
         setTimeout(type, delay);
       });
       
@@ -202,37 +221,30 @@
       let charIndex = 0;
       let isDeletingLive = false;
       let typingSpeedLive = 100;
-      let pauseBetween = 2000;
+      const pauseBetween = 2000;
       
       function typeLiveSites() {
         const currentPhrase = phrases[phraseIndex];
-        
-        // Current text state
         const currentText = isDeletingLive 
           ? currentPhrase.substring(0, charIndex - 1)
           : currentPhrase.substring(0, charIndex + 1);
         
         liveSitesText.textContent = currentText;
         charIndex = currentText.length;
-        
-        // Set typing speed
         typingSpeedLive = isDeletingLive ? 50 : 100;
         
         if (!isDeletingLive && currentText === currentPhrase) {
-          // Pause at end of phrase
           typingSpeedLive = pauseBetween;
           isDeletingLive = true;
         } else if (isDeletingLive && currentText === '') {
-          // Move to next phrase
           isDeletingLive = false;
           phraseIndex = (phraseIndex + 1) % phrases.length;
-          typingSpeedLive = 500; // Pause before next phrase
+          typingSpeedLive = 500;
         }
         
         setTimeout(typeLiveSites, typingSpeedLive);
       }
       
-      // Start the live sites animation
       setTimeout(typeLiveSites, 1000);
     });
   </script>
