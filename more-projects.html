@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio | More Projects</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/8e45396e2e.css">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* Typing animation styles */
+    .typing-text {
+      position: relative;
+      font-family: 'Source Code Pro', monospace;
+    }
+    .typing-text::after {
+      content: "|";
+      position: absolute;
+      right: -5px;
+      animation: blink 1s infinite step-end;
+      color: #27e8ff;
+    }
+    
+    @keyframes blink {
+      from, to { opacity: 0 }
+      50% { opacity: 1 }
+    }
+    
+    .highlight {
+      font-weight: bold;
+      color: #27e8ff;
+    }
+    
+    /* Project title styles */
+    .project-title {
+      position: relative;
+      min-height: 1.5em;
+      font-family: 'Source Code Pro', monospace;
+    }
+    .project-title::after {
+      content: "|";
+      position: absolute;
+      right: -5px;
+      animation: blink 1s infinite step-end;
+      color: #27e8ff;
+    }
+    
+    /* Portfolio heading animation */
+    .portfolio-heading {
+      font-family: 'Source Code Pro', monospace;
+      position: relative;
+      display: inline-block;
+    }
+    .portfolio-heading::after {
+      content: "|";
+      position: absolute;
+      right: -5px;
+      animation: blink 1s infinite step-end;
+      color: #27e8ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-bg">
+    <nav class="navbar">
+      <div class="brand">
+        <img src="2.png" alt="Portfolio Logo" class="portfolio-logo" style="height:86px;width:auto;vertical-align:middle;margin-right:12px;border-radius:10px;">
+        Portfolio.
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="more-projects.html" class="active">More Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <section class="supplementary-section">
+      <h1 class="portfolio-heading" id="portfolioHeading">More Projects</h1>
+      <div class="portfolio-intro">
+        <p>
+          Here are additional projects that showcase my skills and experience. 
+          You can <span class="typing-animation highlight" id="liveSitesText"></span> or view the source code.
+        </p>
+        <p><a href="portfolio.html" class="highlight">← Back to main portfolio</a></p>
+      </div>
+      <div class="portfolio-grid">
+        <!-- Add your additional project cards here -->
+        <div class="portfolio-card">
+          <div class="portfolio-thumb" style="background:#27e8ff22 url('') center/cover no-repeat;">
+            <i class="fa fa-mobile project-icon"></i>
+          </div>
+          <h2 class="project-title" data-text="Mobile App UI Kit"></h2>
+          <p>A comprehensive UI kit for mobile applications with 100+ customizable components and dark/light mode support.</p>
+          <div class="portfolio-links">
+            <a href="#" target="_blank" class="portfolio-btn"><i class="fa fa-external-link"></i> Visit Site</a>
+            <a href="#" target="_blank" class="portfolio-btn"><i class="fa fa-github"></i> Source</a>
+          </div>
+        </div>
+        
+        <div class="portfolio-card">
+          <div class="portfolio-thumb" style="background:#27e8ff22 url('') center/cover no-repeat;">
+            <i class="fa fa-line-chart project-icon"></i>
+          </div>
+          <h2 class="project-title" data-text="Data Visualization Dashboard"></h2>
+          <p>Interactive dashboard built with D3.js that visualizes complex datasets with customizable filters and real-time updates.</p>
+          <div class="portfolio-links">
+            <a href="#" target="_blank" class="portfolio-btn"><i class="fa fa-external-link"></i> Visit Site</a>
+            <a href="#" target="_blank" class="portfolio-btn"><i class="fa fa-github"></i> Source</a>
+          </div>
+        </div>
+        
+        <div class="portfolio-card">
+          <div class="portfolio-thumb" style="background:#27e8ff22 url('') center/cover no-repeat;">
+            <i class="fa fa-gamepad project-icon"></i>
+          </div>
+          <h2 class="project-title" data-text="Browser Game Engine"></h2>
+          <p>A lightweight JavaScript game engine with physics, collision detection, and asset management built from scratch.</p>
+          <div class="portfolio-links">
+            <a href="#" target="_blank" class="portfolio-btn"><i class="fa fa-external-link"></i> Visit Site</a>
+            <a href="#" target="_blank" class="portfolio-btn"><i class="fa fa-github"></i> Source</a>
+          </div>
+        </div>
+        
+        <div class="portfolio-card">
+          <div class="portfolio-thumb" style="background:#27e8ff22 url('') center/cover no-repeat;">
+            <i class="fa fa-server project-icon"></i>
+          </div>
+          <h2 class="project-title" data-text="RESTful API Service"></h2>
+          <p>Scalable backend service with Node.js, Express, and MongoDB featuring JWT authentication and rate limiting.</p>
+          <div class="portfolio-links">
+            <a href="#" target="_blank" class="portfolio-btn"><i class="fa fa-external-link"></i> Visit Site</a>
+            <a href="#" target="_blank" class="portfolio-btn"><i class="fa fa-github"></i> Source</a>
+          </div>
+        </div>
+        
+        <div class="portfolio-card">
+          <div class="portfolio-thumb" style="background:#27e8ff22 url('') center/cover no-repeat;">
+            <i class="fa fa-paint-brush project-icon"></i>
+          </div>
+          <h2 class="project-title" data-text="Design System"></h2>
+          <p>A complete design system with reusable components, style guidelines, and documentation for consistent UI development.</p>
+          <div class="portfolio-links">
+            <a href="#" target="_blank" class="portfolio-btn"><i class="fa fa-external-link"></i> Visit Site</a>
+            <a href="#" target="_blank" class="portfolio-btn"><i class="fa fa-github"></i> Source</a>
+          </div>
+        </div>
+        
+        <div class="portfolio-card">
+          <div class="portfolio-thumb" style="background:#27e8ff22 url('') center/cover no-repeat;">
+            <i class="fa fa-users project-icon"></i>
+          </div>
+          <h2 class="project-title" data-text="Collaboration Platform"></h2>
+          <p>Real-time collaborative workspace with WebSockets, document editing, and team management features.</p>
+          <div class="portfolio-links">
+            <a href="#" target="_blank" class="portfolio-btn"><i class="fa fa-external-link"></i> Visit Site</a>
+            <a href="#" target="_blank" class="portfolio-btn"><i class="fa fa-github"></i> Source</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="portfolio-others">
+        <h3>Find me on:</h3>
+        <div class="portfolio-socials">
+          <a href="https://github.com/Hapyjames" target="_blank" title="GitHub"><i class="fa fa-github"></i></a>
+          <a href="https://www.facebook.com/hapyjames.ke" target="_blank" title="Facebook"><i class="fa fa-facebook"></i></a>
+          <a href="https://www.linkedin.com/in/hapyjames-james-018981356?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
+          <a href="https://x.com/HapyJames_?s=09" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a>
+        </div>
+        <p class="portfolio-contact-note">
+          Want to see more? <a href="contact.html" class="highlight">Contact me</a> or check out my other online profiles.
+        </p>
+      </div>
+    </section>
+  </div>
+  <footer class="foots">
+    <div class="footer-content">
+      <p>&copy; 2025 Hapy James. All rights reserved.</p>
+      <p>Designed with <i class="fa fa-heart"></i> by Hapy James</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Portfolio heading typing animation (infinite loop)
+      const portfolioHeading = document.getElementById('portfolioHeading');
+      const headingText = "More Projects";
+      let headingIndex = 0;
+      let isDeletingHeading = false;
+      let headingSpeed = 150;
+      
+      function typeHeading() {
+        const currentText = isDeletingHeading 
+          ? headingText.substring(0, headingIndex - 1)
+          : headingText.substring(0, headingIndex + 1);
+        
+        portfolioHeading.textContent = currentText;
+        headingIndex = currentText.length;
+        
+        if (!isDeletingHeading && currentText === headingText) {
+          // Pause at end
+          headingSpeed = 2000;
+          isDeletingHeading = true;
+        } else if (isDeletingHeading && currentText === '') {
+          // Restart typing
+          isDeletingHeading = false;
+          headingSpeed = 500;
+        }
+        
+        setTimeout(typeHeading, headingSpeed);
+      }
+      
+      // Start heading animation
+      setTimeout(typeHeading, 1000);
+      
+      // Project titles typing animation
+      const projectTitles = document.querySelectorAll('.project-title');
+      const baseDelay = 300;
+      
+      projectTitles.forEach((title, index) => {
+        const fullText = title.getAttribute('data-text');
+        let text = '';
+        let isDeleting = false;
+        let typingSpeed = 100;
+        let delay = index * baseDelay;
+        
+        function type() {
+          const currentText = isDeleting 
+            ? fullText.substring(0, text.length - 1)
+            : fullText.substring(0, text.length + 1);
+          
+          title.textContent = currentText;
+          text = currentText;
+          
+          typingSpeed = isDeleting ? 50 : 100;
+          
+          if (!isDeleting && text === fullText) {
+            typingSpeed = 2000;
+            isDeleting = true;
+          } else if (isDeleting && text === '') {
+            isDeleting = false;
+            typingSpeed = 500;
+          }
+          
+          setTimeout(type, typingSpeed);
+        }
+        
+        setTimeout(type, delay);
+      });
+      
+      // "Visit the live sites" typing animation (runs once)
+      const liveSitesText = document.getElementById('liveSitesText');
+      const phrases = ["visit the live sites"];
+      let phraseIndex = 0;
+      let charIndex = 0;
+      let typingSpeedLive = 100;
+      let hasCompleted = false;
+      
+      function typeLiveSites() {
+        if (hasCompleted) return;
+        
+        const currentPhrase = phrases[phraseIndex];
+        const currentText = currentPhrase.substring(0, charIndex + 1);
+        
+        liveSitesText.textContent = currentText;
+        charIndex++;
+        
+        if (currentText !== currentPhrase) {
+          setTimeout(typeLiveSites, typingSpeedLive);
+        } else {
+          hasCompleted = true;
+          // Remove the cursor after animation completes
+          liveSitesText.style.setProperty('--after-display', 'none');
+        }
+      }
+      
+      // Start the live sites animation
+      setTimeout(typeLiveSites, 1500);
+    });
+  </script>
+</body>
+</html>
